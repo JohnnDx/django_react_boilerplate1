@@ -10,7 +10,7 @@ import {
   DropdownMenuSeparator,
   DropdownMenuTrigger,
 } from '@/components/ui/dropdown-menu'
-import { UserAvatarProfile } from '@/components/user-avatar-profile'
+import { UserAvatarProfile } from './user-avatar-profile'
 import { useRouter } from 'next/navigation'
 
 export function UserNav() {

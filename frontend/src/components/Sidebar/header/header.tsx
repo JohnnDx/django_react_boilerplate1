@@ -1,4 +1,6 @@
-import React from 'react';
+'use client'
+
+import React, { useEffect, useState } from 'react'
 // import { SidebarTrigger } from '../ui/sidebar';
 // import { Separator } from '../ui/separator';
 // import { Breadcrumbs } from '../breadcrumbs';
@@ -12,7 +14,7 @@ import {
   SidebarInset,
   SidebarProvider,
   SidebarTrigger,
-} from "@/components/ui/sidebar"
+} from '@/components/ui/sidebar'
 
 import {
   Breadcrumb,
@@ -23,30 +25,50 @@ import {
   BreadcrumbSeparator,
 } from '@/components/ui/breadcrumb'
 import { Separator } from '@/components/ui/separator'
+
 import CtaGithub from './cta-github'
+import SearchInput from './search-input'
+import { UserNav } from './user-nav'
 
-
+import { ModeToggle } from './theme-toggle'
+import { Breadcrumbs } from './breadcrumbs'
 
 export default function Header() {
-  return (
-    <header className="flex h-16 shrink-0 items-center justify-between gap-2 border-b border-border transition-[width,height] ease-linear group-has-data-[collapsible=icon]/sidebar-wrapper:h-12">
+  const [scrolled, setScrolled] = useState(false)
 
-      <div className='flex items-center gap-2 px-4'>
-        <SidebarTrigger className='-ml-1' />
-        <Separator orientation='vertical' className='mr-2 h-4' />
-        {/* <Breadcrumbs /> */}
+  useEffect(() => {
+    const onScroll = () => {
+      setScrolled(window.scrollY > 12)
+    }
+
+    window.addEventListener('scroll', onScroll)
+    return () => window.removeEventListener('scroll', onScroll)
+  }, [])
+
+  return (
+    <header
+  className={`mt-2 sticky top-0 z-40 flex h-16 shrink-0 items-center justify-between gap-2 border-b border-border bg-background transition-all ease-linear group-has-data-[collapsible=icon]/sidebar-wrapper:h-12 ${
+    scrolled ? ' rounded-xl shadow-sm' : ''
+  }`}
+>
+
+      <div className="flex items-center gap-2 px-4">
+        <SidebarTrigger className="-ml-1" />
+        <Separator orientation="vertical" className="mr-2 h-4" />
+        <Breadcrumbs />
       </div>
 
-      <div className='flex items-center gap-2 px-4'>
+      <div className="flex items-center gap-2 px-4">
         <CtaGithub />
-        {/* <div className='hidden md:flex'>
+        <div className="hidden md:flex">
           <SearchInput />
         </div>
         <UserNav />
         <ModeToggle />
-        <ThemeSelector /> */}
+        {/* <ThemeSelector /> */}
       </div>
     </header>
+
     // <header className="flex h-16 shrink-0 items-center gap-2">
     //       <div className="flex items-center gap-2 px-4">
     //         <SidebarTrigger className="-ml-1" />
@@ -69,5 +91,5 @@ export default function Header() {
     //         </Breadcrumb>
     //       </div>
     //     </header>
-  );
+  )
 }

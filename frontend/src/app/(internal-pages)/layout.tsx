@@ -7,18 +7,92 @@ import {
   KBarAnimator,
   KBarSearch,
   KBarResults,
+  useMatches,
+  useKBar,
 } from 'kbar'
 
 import {
   SidebarInset,
   SidebarProvider,
-  SidebarTrigger,
 } from "@/components/ui/sidebar"
 
-
-// import AppSidebar from '@/components/app-sidebar'
-import {AppSidebar} from '@/components/Sidebar/app-sidebar'
+import {KBarCommand} from '@/components/KBarCommand';
+import { AppSidebar } from '@/components/Sidebar/app-sidebar'
 import Header from '@/components/Sidebar/header/header'
+
+// ✅ akcje
+const actions = [
+  {
+    id: "dashboard-overview",
+    name: "Overview",
+    shortcut: ["o"],
+    keywords: "overview main home",
+    section: "Navigation",
+    perform: () => (window.location.href = "/dashboard/overview"),
+  },
+  {
+    id: "dashboard-api-keys",
+    name: "API Keys",
+    shortcut: ["a"],
+    keywords: "api keys integrations tokens",
+    section: "Navigation",
+    perform: () => (window.location.href = "/dashboard/api-keys"),
+  },
+  {
+    id: "dashboard-chat",
+    name: "Chat",
+    shortcut: ["c"],
+    keywords: "chat messages support",
+    section: "Navigation",
+    perform: () => (window.location.href = "/dashboard/chat"),
+  },
+  {
+    id: "dashboard-mailsetup",
+    name: "Mail Setup",
+    shortcut: ["m"],
+    keywords: "mail smtp email imap",
+    section: "Navigation",
+    perform: () => (window.location.href = "/dashboard/mailsetup"),
+  },
+  {
+    id: "dashboard-modals",
+    name: "Modals",
+    shortcut: ["d"],
+    keywords: "modal dialog popup",
+    section: "Navigation",
+    perform: () => (window.location.href = "/dashboard/modals"),
+  },
+  {
+    id: "dashboard-referral",
+    name: "Referral Program",
+    shortcut: ["r"],
+    keywords: "referral invite affiliate",
+    section: "Navigation",
+    perform: () => (window.location.href = "/dashboard/refferal"),
+  },
+  {
+    id: "dashboard-settings",
+    name: "Settings",
+    shortcut: ["s"],
+    keywords: "settings preferences account",
+    section: "Navigation",
+    perform: () => (window.location.href = "/dashboard/settings"),
+  },
+]
+
+
+function Overlay() {
+  const { visualState } = useKBar((state) => state)
+
+  return (
+    <div
+      className={`fixed inset-0 z-40 bg-black/50 backdrop-blur-sm transition-opacity duration-75 ${
+        visualState === 'showing' ? 'opacity-100' : 'opacity-0 pointer-events-none'
+      }`}
+    />
+  )
+}
+
 
 
 
@@ -28,37 +102,30 @@ export default function DashboardLayout({
   children: React.ReactNode
 }) {
   return (
-    <KBarProvider actions={[]}>
+    
+      <KBarProvider actions={actions}>
       <KBarPortal>
-        <KBarPositioner>
-          <KBarAnimator className="rounded-lg border bg-popover p-4 shadow-lg">
-            <KBarSearch className="w-full rounded-md border px-3 py-2 text-sm" />
-            <KBarResults />
+        <Overlay />
+        <KBarPositioner className="z-50">
+          <KBarAnimator className="pl-[256px]">
+            <div className="flex justify-center w-full">
+              <div className="w-full max-w-md">
+                <KBarCommand />
+              </div>
+            </div>
           </KBarAnimator>
         </KBarPositioner>
       </KBarPortal>
 
-
-
-<SidebarProvider>
-      <AppSidebar />
-      <SidebarInset>
-        <Header />
-        <div className="flex flex-1 flex-col gap-4 p-4 pt-0">
-          {/* <div className="grid auto-rows-min gap-4 md:grid-cols-3">
-            <div className="bg-muted/50 aspect-video rounded-xl" />
-            <div className="bg-muted/50 aspect-video rounded-xl" />
-            <div className="bg-muted/50 aspect-video rounded-xl" />
+      <SidebarProvider>
+        <AppSidebar />
+        <SidebarInset>
+          <Header />
+          <div className="flex flex-1 flex-col gap-4 p-4 pt-0">
+            {children}
           </div>
-          <div className="bg-muted/50 min-h-[100vh] flex-1 rounded-xl md:min-h-min" /> */}
-          {children}
-        </div>
-      </SidebarInset>
-    </SidebarProvider>
-    
-
+        </SidebarInset>
+      </SidebarProvider>
     </KBarProvider>
-
-
   )
 }

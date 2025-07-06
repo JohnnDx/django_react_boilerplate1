@@ -12,6 +12,7 @@ import {
   Send,
   Settings2,
   SquareTerminal,
+  Puzzle,
 } from "lucide-react"
 
 import WorkspaceSwitcher from "@/components/Sidebar/workspace-switcher"
@@ -30,128 +31,173 @@ import {
   SidebarMenuItem,
 } from "@/components/ui/sidebar"
 
+
+
 const data = {
   user: {
     name: "shadcn",
     email: "m@example.com",
     avatar: "/avatars/shadcn.jpg",
   },
-  navMain: [
-    {
-      title: "Playground",
-      url: "#",
-      icon: SquareTerminal,
-      isActive: true,
-      items: [
-        {
-          title: "History",
-          url: "#",
-        },
-        {
-          title: "Starred",
-          url: "#",
-        },
-        {
-          title: "Settings",
-          url: "#",
-        },
-      ],
-    },
-    {
-      title: "Models",
-      url: "#",
-      icon: Bot,
-      items: [
-        {
-          title: "Genesis",
-          url: "#",
-        },
-        {
-          title: "Explorer",
-          url: "#",
-        },
-        {
-          title: "Quantum",
-          url: "#",
-        },
-      ],
-    },
-    {
-      title: "Documentation",
-      url: "#",
-      icon: BookOpen,
-      items: [
-        {
-          title: "Introduction",
-          url: "#",
-        },
-        {
-          title: "Get Started",
-          url: "#",
-        },
-        {
-          title: "Tutorials",
-          url: "#",
-        },
-        {
-          title: "Changelog",
-          url: "#",
-        },
-      ],
-    },
-    {
-      title: "Settings",
-      url: "#",
-      icon: Settings2,
-      items: [
-        {
-          title: "General",
-          url: "#",
-        },
-        {
-          title: "Team",
-          url: "#",
-        },
-        {
-          title: "Billing",
-          url: "#",
-        },
-        {
-          title: "Limits",
-          url: "#",
-        },
-      ],
-    },
-  ],
-  navSecondary: [
-    {
-      title: "Support",
-      url: "#",
-      icon: LifeBuoy,
-    },
-    {
-      title: "Feedback",
-      url: "#",
-      icon: Send,
-    },
-  ],
-  projects: [
-    {
-      name: "Design Engineering",
-      url: "#",
-      icon: Frame,
-    },
-    {
-      name: "Sales & Marketing",
-      url: "#",
-      icon: PieChart,
-    },
-    {
-      name: "Travel",
-      url: "#",
-      icon: Map,
-    },
-  ],
+//   navMain: [
+//     {
+//       title: "Playground",
+//       url: "#",
+//       icon: SquareTerminal,
+//       isActive: true,
+//       items: [
+//         {
+//           title: "History",
+//           url: "#",
+//         },
+//         {
+//           title: "Starred",
+//           url: "#",
+//         },
+//         {
+//           title: "Settings",
+//           url: "#",
+//         },
+//       ],
+//     },
+//     {
+//       title: "Models",
+//       url: "#",
+//       icon: Bot,
+//       items: [
+//         {
+//           title: "Genesis",
+//           url: "#",
+//         },
+//         {
+//           title: "Explorer",
+//           url: "#",
+//         },
+//         {
+//           title: "Quantum",
+//           url: "#",
+//         },
+//       ],
+//     },
+//     {
+//       title: "Documentation",
+//       url: "#",
+//       icon: BookOpen,
+//       items: [
+//         {
+//           title: "Introduction",
+//           url: "#",
+//         },
+//         {
+//           title: "Get Started",
+//           url: "#",
+//         },
+//         {
+//           title: "Tutorials",
+//           url: "#",
+//         },
+//         {
+//           title: "Changelog",
+//           url: "#",
+//         },
+//       ],
+//     },
+//     {
+//       title: "Settings",
+//       url: "#",
+//       icon: Settings2,
+//       items: [
+//         {
+//           title: "General",
+//           url: "#",
+//         },
+//         {
+//           title: "Team",
+//           url: "#",
+//         },
+//         {
+//           title: "Billing",
+//           url: "#",
+//         },
+//         {
+//           title: "Limits",
+//           url: "#",
+//         },
+//       ],
+//     },
+//   ],
+//   navSecondary: [
+//     {
+//       title: "Support",
+//       url: "#",
+//       icon: LifeBuoy,
+//     },
+//     {
+//       title: "Feedback",
+//       url: "#",
+//       icon: Send,
+//     },
+//   ],
+//   projects: [
+//     {
+//       name: "Design Engineering",
+//       url: "#",
+//       icon: Frame,
+//     },
+//     {
+//       name: "Sales & Marketing",
+//       url: "#",
+//       icon: PieChart,
+//     },
+//     {
+//       name: "Travel",
+//       url: "#",
+//       icon: Map,
+//     },
+//   ],
+// }
+navMain: [
+  {
+    title: "Overview",
+    url: "/dashboard/overview",
+    icon: SquareTerminal,
+  },
+  {
+    title: "API Keys",
+    url: "/dashboard/api-keys",
+    icon: Command,
+  },
+  {
+    title: "Chat",
+    url: "/dashboard/chat",
+    icon: Bot,
+  },
+  {
+    title: "Mail Setup",
+    url: "/dashboard/mailsetup",
+    icon: Send,
+  },
+  {
+    title: "Modals",
+    url: "/dashboard/modals",
+    icon: BookOpen,
+  },
+  {
+    title: "Referral Program",
+    url: "/dashboard/refferal",
+    icon: LifeBuoy,
+  },
+  {
+    title: "Settings",
+    url: "/dashboard/settings",
+    icon: Settings2,
+  },
+  {
+    title: "Components",
+    url: "/dashboard/components",
+    icon: Puzzle,
+  },
+],
 }
 
 export function AppSidebar({ ...props }: React.ComponentProps<typeof Sidebar>) {
@@ -179,8 +225,8 @@ export function AppSidebar({ ...props }: React.ComponentProps<typeof Sidebar>) {
       
       <SidebarContent>
         <NavMain items={data.navMain} />
-        <NavProjects projects={data.projects} />
-        <NavSecondary items={data.navSecondary} className="mt-auto" />
+        {/* <NavProjects projects={data.projects} />
+        <NavSecondary items={data.navSecondary} className="mt-auto" /> */}
       </SidebarContent>
       <SidebarFooter>
         {/* <div className="p-1">
