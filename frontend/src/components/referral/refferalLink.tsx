@@ -1,3 +1,4 @@
+// components/referral/refferalLink.tsx
 "use client";
 import { useState } from "react";
 import { Facebook, Instagram, Twitter, Copy, Check } from "lucide-react";
@@ -13,29 +14,40 @@ export default function ShareReferralLink({ refferalLink = "" }: { refferalLink?
   const handleCopyLink = () => {
     navigator.clipboard.writeText(refferalLink);
     setCopied(true);
-    toast({ title: "Copied", description: "Referral link copied to clipboard." });
-
-    setTimeout(() => setCopied(false), 2000); // Reset after 2 seconds
+    toast({ title: "Copied!", description: "Your referral link has been copied." });
+    setTimeout(() => setCopied(false), 2000);
   };
 
   const socials = [
-    { name: "Facebook", href: `https://facebook.com/sharer/sharer.php?u=${encodeURIComponent(refferalLink)}`, icon: Facebook },
-    { name: "Twitter", href: `https://twitter.com/intent/tweet?url=${encodeURIComponent(refferalLink)}`, icon: Twitter },
-    { name: "Instagram", href: `https://www.instagram.com/?url=${encodeURIComponent(refferalLink)}`, icon: Instagram },
+    {
+      name: "Facebook",
+      href: `https://facebook.com/sharer/sharer.php?u=${encodeURIComponent(refferalLink)}`,
+      icon: Facebook,
+    },
+    {
+      name: "Twitter",
+      href: `https://twitter.com/intent/tweet?url=${encodeURIComponent(refferalLink)}`,
+      icon: Twitter,
+    },
+    {
+      name: "Instagram",
+      href: `https://www.instagram.com/?url=${encodeURIComponent(refferalLink)}`,
+      icon: Instagram,
+    },
   ];
 
   return (
-    <section className="py-12 max-w-4xl mx-auto text-center space-y-6">
+    <section className="py-12 max-w-5xl mx-auto space-y-6 text-center">
       <h2 className="text-3xl font-semibold">Share Your Link</h2>
       <p className="text-muted-foreground max-w-2xl mx-auto">
-        Copy your unique referral link or share it directly to social media.
+        Invite your network and get rewarded for every sign-up or purchase.
       </p>
-      <Card>
+      <Card className="text-left">
         <CardHeader>
-          <CardTitle className="text-left">Your Referral Link</CardTitle>
+          <CardTitle>Your Referral Link</CardTitle>
         </CardHeader>
         <CardContent className="flex flex-col md:flex-row items-center gap-4">
-          <Input readOnly value={refferalLink} />
+          <Input readOnly value={refferalLink} className="flex-1" />
           <Button onClick={handleCopyLink} variant="outline">
             {copied ? (
               <>
@@ -56,10 +68,10 @@ export default function ShareReferralLink({ refferalLink = "" }: { refferalLink?
                 href={href}
                 target="_blank"
                 rel="noreferrer"
-                className="inline-flex items-center justify-center w-10 h-10 rounded-full bg-pink-100 text-pink-600 hover:bg-pink-200 transition"
                 title={`Share on ${name}`}
+                className="w-9 h-9 flex items-center justify-center bg-pink-100 text-pink-600 hover:bg-pink-200 rounded-full transition"
               >
-                <Icon size={20} />
+                <Icon size={18} />
               </a>
             ))}
           </div>

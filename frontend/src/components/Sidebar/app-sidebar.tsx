@@ -156,49 +156,70 @@ const data = {
 //     },
 //   ],
 // }
-navMain: [
-  {
-    title: "Overview",
-    url: "/dashboard/overview",
-    icon: SquareTerminal,
-  },
-  {
-    title: "API Keys",
-    url: "/dashboard/api-keys",
-    icon: Command,
-  },
-  {
-    title: "Chat",
-    url: "/dashboard/chat",
-    icon: Bot,
-  },
-  {
-    title: "Mail Setup",
-    url: "/dashboard/mailsetup",
-    icon: Send,
-  },
-  {
-    title: "Modals",
-    url: "/dashboard/modals",
-    icon: BookOpen,
-  },
-  {
-    title: "Referral Program",
-    url: "/dashboard/refferal",
-    icon: LifeBuoy,
-  },
-  {
-    title: "Settings",
-    url: "/dashboard/settings",
-    icon: Settings2,
-  },
-  {
-    title: "Components",
-    url: "/dashboard/components",
-    icon: Puzzle,
-  },
-],
-}
+
+  navMain: [
+    {
+      title: "Overview",
+      url: "/dashboard/overview",
+      icon: SquareTerminal,
+    },
+    {
+      title: "Chat",
+      url: "/dashboard/chat",
+      icon: Bot,
+    },
+    {
+      title: "Referral Program",
+      url: "/dashboard/refferal",
+      icon: LifeBuoy,
+    },
+    {
+      title: "Modals",
+      url: "/dashboard/modals",
+      icon: BookOpen,
+    },
+    {
+      title: "Components",
+      url: "/dashboard/components",
+      icon: Puzzle,
+      items: [
+        {
+          title: "Changelog",
+          url: "/dashboard/components/changelog",
+        },
+        {
+          title: "Billing",
+          url: "/dashboard/components/billing",
+        },
+        {
+          title: "Profile",
+          url: "/dashboard/components/profile",
+        },
+        {
+          title: "Integrations",
+          url: "/dashboard/components/integrations",
+        },
+        {
+          title: "Api Keys",
+          url: "/dashboard/components/api",
+        },
+      ],
+    },
+  ],
+  navSecondary: [
+    {
+      title: "Support",
+      url: "#",
+      icon: LifeBuoy,
+    },
+    {
+      title: "Feedback",
+      url: "#",
+      icon: Send,
+    },
+  ],
+};
+
 
 export function AppSidebar({ ...props }: React.ComponentProps<typeof Sidebar>) {
   return (
@@ -225,13 +246,13 @@ export function AppSidebar({ ...props }: React.ComponentProps<typeof Sidebar>) {
       
       <SidebarContent>
         <NavMain items={data.navMain} />
-        {/* <NavProjects projects={data.projects} />
-        <NavSecondary items={data.navSecondary} className="mt-auto" /> */}
+        {/* <NavProjects projects={data.projects} /> */}
+        <NavSecondary items={data.navSecondary} className="mt-auto" />
       </SidebarContent>
       <SidebarFooter>
-        {/* <div className="p-1">
+        <div className="p-1">
           <SidebarOptInForm />
-        </div> */}
+        </div>
 
         <NavUser user={data.user} />
       </SidebarFooter>

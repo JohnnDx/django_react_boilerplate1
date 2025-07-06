@@ -107,7 +107,8 @@ export default function DashboardLayout({
       <KBarPortal>
         <Overlay />
         <KBarPositioner className="z-50">
-          <KBarAnimator className="pl-[256px]">
+          <KBarAnimator >
+          {/* <KBarAnimator className="pl-[256px]"> */}
             <div className="flex justify-center w-full">
               <div className="w-full max-w-md">
                 <KBarCommand />
