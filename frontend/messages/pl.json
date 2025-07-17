@@ -1,0 +1,345 @@
+{
+  "changelog": {
+  "title": "Dziennik zmian",
+  "subtitle": "Zobacz, co nowego i co zostało ulepszone w platformie.",
+  "versions": {
+    "v1_3_0": {
+      "tag": "Nowość",
+      "updates": [
+        "Wdrożono zarządzanie rolami i uprawnieniami użytkowników",
+        "Dodano preferencje powiadomień dla aktywności kampanii",
+        "Umożliwiono planowanie wysyłki maili według strefy czasowej użytkownika",
+        "Integracja z Gmail OAuth do wysyłki wiadomości",
+        "System punktacji leadów z tagowaniem",
+        "Ulepszona wydajność dashboardu przez lazy loading",
+        "Obsługa własnych linków wypisu",
+        "Kanał aktywności z filtrami (kampanie, użytkownicy, system)"
+      ]
+    },
+    "v1_2_0": {
+      "tag": "Nowość",
+      "updates": [
+        "Dodano zaproszenia do zespołu przez email",
+        "System logów audytu aktywności użytkowników",
+        "Ulepszony interfejs zarządzania kluczami API",
+        "Wsparcie dla i18n w językach polskim i angielskim",
+        "Nowa checklista onboardingowa z postępem",
+        "Tryb ciemny w ustawieniach",
+        "Eksport leadów do pliku CSV",
+        "Sugestie w edytorze maili z pomocą OpenAI"
+      ]
+    },
+    "v1_1_0": {
+      "tag": "Ulepszenie",
+      "updates": [
+        "Wdrożono obsługę wielu najemców (multi-tenancy)",
+        "Integracja Stripe z planami zespołowymi",
+        "Dodano wielokrotnego użytku karty analityczne na dashboardzie",
+        "Lepsza obsługa błędów przy wysyłce SMTP",
+        "Poprawiona responsywność widoków dashboardu na mobile",
+        "Szybsze tworzenie kampanii z autosave",
+        "Refaktoryzacja backendu dla lepszej skalowalności"
+      ]
+    },
+    "v1_0_0": {
+      "tag": "Wydanie",
+      "updates": [
+        "Pierwsze wydanie MVP z tworzeniem kampanii",
+        "Wysyłka cold maili przez SMTP i Mailersend",
+        "Podstawowe metryki i onboarding użytkownika",
+        "Integracja Stripe dla płatnych planów",
+        "Import leadów z CSV i formularza",
+        "Logowanie i rejestracja przez Supabase",
+        "Panel admina z możliwością podszywania się",
+        "Panel ustawień użytkownika"
+      ]
+    }
+  }
+}
+,
+  "referral": {
+    "title": "🎁 Odbierz darmowy dostęp przy 10 poleceniach!",
+    "subtitle": "Brakuje Ci jeszcze {count} poleceń do nagrody.",
+    "linkLabel": "Udostępnij link",
+    "stats": {
+      "referrals": "Polecenia",
+      "earnings": "Zarobki",
+      "clicks": "Kliknięcia",
+      "signups": "Rejestracje"
+    }
+  },
+  "emailProviders": {
+    "title": "Dostawcy Email",
+    "connect": "Dodaj Nową Skrzynkę"
+  },
+  "settings": {
+    "title": "Ustawienia",
+    "profile": "Twój Profil",
+    "notifications": "Powiadomienia"
+  },
+  "common": {
+    "buttons": {
+      "save": "Zapisz",
+      "cancel": "Anuluj"
+    },
+    "labels": {
+      "email": "Email",
+      "password": "Hasło"
+    }
+  },
+  "sidebar": {
+    "overview": "Przegląd",
+    "chat": "Czat",
+    "referral": "Program Poleceń",
+    "modals": "Modale",
+    "components": {
+      "_": "Komponenty",
+      "changelog": "Dziennik zmian",
+      "billing": "Płatności",
+      "profile": "Profil",
+      "integrations": "Integracje",
+      "api": "Klucze API",
+      "pricing": "Cennik",
+      "invoices": "Faktury",
+      "team": "Zespół",
+      "notifications": "Powiadomienia",
+      "activity": "Aktywność",
+      "mails": "Maile",
+      "dashboard": "Panel",
+      "onboarding": "Onboarding"
+    },
+    "klientomat": {
+      "title": "Klientomat",
+      "dashboard": "Panel",
+      "campaigns": "Kampanie",
+      "leads": "Leady",
+      "sequences": "Sekwencje",
+      "analytics": "Analityka",
+      "outbox": "Wysłane",
+      "emailProviders": "Skrzynki Email",
+      "teams": "Zespół",
+      "settings": "Ustawienia"
+    },
+    "astrolytics": {
+      "title": "Astrolytics",
+      "dashboard": "Panel",
+      "campaigns": "Kampanie",
+      "events": "Zdarzenia",
+      "referrals": "Polecenia",
+      "insights": "Wnioski",
+      "settings": "Ustawienia",
+      "team": "Zespół"
+    },
+    "errors": "Błędy",
+    "support": "Wsparcie",
+    "feedback": "Feedback"
+  },
+  "pricing": {
+  "title": "Plany cenowe na każdy etap",
+  "description": "Przejrzyste, elastyczne ceny dopasowane do rozwoju Twojego biznesu. Wybierz plan odpowiadający Twoim potrzebom i celom.",
+  "billing": {
+    "monthly": "Miesięcznie",
+    "annually": "Rocznie"
+  },
+  "plans": {
+    "basic": {
+      "name": "Podstawowy",
+      "headline": "Idealny dla osób indywidualnych i małych projektów",
+      "features": [
+        "Do 5 członków zespołu",
+        "10GB przestrzeni dyskowej",
+        "Podstawowa analityka"
+      ]
+    },
+    "standard": {
+      "name": "Standard",
+      "headline": "Idealny dla rozwijających się zespołów i firm",
+      "badge": "Najpopularniejszy",
+      "features": [
+        "Wszystko z planu Podstawowego, plus:",
+        "Do 20 członków zespołu",
+        "50GB przestrzeni dyskowej",
+        "Zaawansowana analityka",
+        "Priorytetowe wsparcie"
+      ]
+    },
+    "premium": {
+      "name": "Premium",
+      "headline": "Dla dużych firm i zaawansowanych potrzeb",
+      "features": [
+        "Wszystko z planu Standardowego, plus:",
+        "Nieograniczona liczba członków zespołu",
+        "250GB przestrzeni dyskowej",
+        "Własna analityka",
+        "Całodobowe wsparcie premium",
+        "White-label"
+      ]
+    }
+  },
+  "purchase": "Wybierz plan"
+}
+,"billing": {
+  "title": "Płatności",
+  "description": "Zarządzaj subskrypcją, metodami płatności i danymi osobowymi.",
+  "plan": {
+    "title": "Status Planu",
+    "free": "Plan darmowy",
+    "upgradeNotice": "Korzystasz obecnie z darmowego planu. Uaktualnij, aby odblokować więcej funkcji, takich jak dodawanie komponentów.",
+    "viewPlans": "Zobacz plany"
+  },
+  "card": {
+    "title": "Dane Karty",
+    "description": "Przeglądaj i aktualizuj dane swojej karty.",
+    "name": "Imię i nazwisko na karcie",
+    "number": "Numer karty",
+    "expiry": "Data ważności",
+    "cvv": "CVV",
+    "save": "Zapisz"
+  },
+  "client": {
+    "title": "Dane Klienta",
+    "description": "Zaktualizuj swoje dane osobowe.",
+    "fullName": "Imię i nazwisko",
+    "email": "Email",
+    "country": "Kraj",
+    "city": "Miasto",
+    "address": "Adres",
+    "state": "Województwo"
+  }
+}
+,"activity": {
+    "title": "Aktywność",
+    "description": "Zobacz, co ostatnio działo się na Twoim koncie.",
+    "status": {
+      "success": "Sukces",
+      "warning": "Ostrzeżenie",
+      "error": "Błąd"
+    },
+    "items": {
+      "login": "Zalogowano się",
+      "teamSettingsChanged": "Zmieniono ustawienia zespołu",
+      "userInvited": "Zaproszono nowego użytkownika",
+      "projectDeleted": "Usunięto projekt",
+      "onboardingCompleted": "Zakończono onboarding"
+    }
+  },
+  "api": {
+  "title": "Ustawienia API",
+  "description": "Skonfiguruj swoje ustawienia API. Dodawaj, usuwaj lub edytuj istniejące klucze.",
+  "public": "Publiczne API",
+  "private": "Prywatne API",
+  "new": "Nowe",
+  "add": "Dodaj API",
+  "cancel": "Anuluj",
+  "name": "Nazwa",
+  "status": "Status",
+  "created": "Data utworzenia",
+  "actions": "Akcje",
+  "edit": "Edytuj",
+  "duplicate": "Duplikuj",
+  "delete": "Usuń",
+  "support": "Skontaktuj się z pomocą",
+  "dialogTitle": "Dodaj nowe publiczne API",
+  "placeholders": {
+    "name": "Nazwa API"
+  },
+  "statuses": {
+      "active": "Aktywne",
+      "disabled": "Wyłączone",
+      "revoke": "Unieważnione"
+    }
+  },
+  "billing": {
+    "invoices": {
+      "title": "Faktury",
+      "subtitle": "Zarządzaj fakturami, rozliczeniami i płatnościami bez wysiłku.",
+      "searchPlaceholder": "Szukaj faktur...",
+      "download": "Pobierz wszystkie",
+      "columns": {
+        "invoice": "Faktura",
+        "date": "Data rozliczenia",
+        "status": "Status",
+        "plan": "Plan"
+      },
+      "rowsPerPage": "Wierszy na stronę:",
+      "noResults": "Brak wyników.",
+      "of": "z",
+      "prevPage": "Poprzednia strona",
+      "nextPage": "Następna strona"
+    }
+  },
+  "mailbox": {
+    "tags": {
+    "work": "Praca",
+    "personal": "Osobiste",
+    "important": "Ważne",
+    "meeting": "Spotkanie",
+    "budget": "Budżet",
+    "conference": "Konferencja",
+    "travel": "Podróże"
+  },
+    
+    "inbox": {
+      "title": "Skrzynka",
+      "all": "Wszystkie",
+      "unread": "Nieprzeczytane",
+      "searchPlaceholder": "Szukaj w wiadomościach..."
+  }
+,
+    "display": {
+      "noMessage": "Nie wybrano wiadomości",
+      "back": "Wróć",
+      "archive": "Archiwizuj",
+      "junk": "Przenieś do spamu",
+      "trash": "Usuń",
+      "snoozeUntil": "Uśpij do",
+      "snooze": {
+        "laterToday": "Później dzisiaj",
+        "tomorrow": "Jutro",
+        "weekend": "W ten weekend",
+        "nextWeek": "W przyszłym tygodniu"
+      },
+      "reply": "Odpowiedz",
+      "replyall": "Odpowiedz wszystkim",
+      "forward": "Przekaż dalej",
+      "replyTo": "Odpowiedz do",
+      "mute": "Wycisz tę konwersację",
+      "send": "Wyślij"
+    }
+    
+  },
+  "notifications": {
+    "title": "Powiadomienia",
+    "description": "Bądź na bieżąco dzięki powiadomieniom! Wybierz, jak chcesz otrzymywać aktualizacje.",
+    "generalTitle": "Powiadomienia ogólne",
+    "generalDescription": "Informacje o aktywnościach i wydarzeniach związanych z kontem.",
+    "summaryTitle": "Powiadomienia podsumowujące",
+    "summaryDescription": "Zwięzłe podsumowania Twojej aktywności i aktualizacji.",
+    "general": {
+      "newMessages": "Nowe wiadomości",
+      "accountActivity": "Aktywność konta",
+      "mentions": "Wzmianki w dyskusjach",
+      "appUpdates": "Aktualizacje aplikacji"
+    },
+    "summary": {
+      "dailySummary": "Codzienne podsumowanie",
+      "weeklyReport": "Cotygodniowy raport",
+      "billingSummary": "Podsumowanie płatności",
+      "eventReminders": "Przypomnienia o wydarzeniach"
+    },
+    "options": {
+      "all": "Wszystko",
+      "email": "E-mail",
+      "inApp": "W aplikacji",
+      "none": "Brak"
+    }
+  }
+  
+}
+
+  
+
+
+
+
+

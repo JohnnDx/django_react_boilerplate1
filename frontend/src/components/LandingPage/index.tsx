@@ -22,6 +22,16 @@ import Cookies from "js-cookie";
 import { useSearchParams } from "next/navigation";
 import postIncrementClicks from "@/queries/refferal/postIncrementClicks";
 import { AFFILIATE_CODE_KEY } from "@/utils/constants";
+
+
+import Hero1 from "@/components/Klientomat_LP/hero-home";
+import BusinessCategories from "@/components/Klientomat_LP/business-categories";
+import LargeTestimonial from "@/components/Klientomat_LP/large-testimonial";
+import FeaturesPlanet from "@/components/Klientomat_LP/features-planet";
+import Features1 from "@/components/Klientomat_LP/features-home";
+import TestimonialsCarousel from "@/components/Klientomat_LP/testimonials-carousel";
+import Cta from "@/components/Klientomat_LP/cta";
+
 const LandingPage = () => {
   const params = useSearchParams();
   const code = params.get("code");
@@ -40,6 +50,14 @@ const LandingPage = () => {
       <PureTestimonials />
       <PureFAQ />
       <PureCTA />
+
+      {/* <Hero1 /> */}
+      {/* <BusinessCategories /> */}
+      {/* <LargeTestimonial /> */}
+      {/* <FeaturesPlanet /> */}
+      {/* <Features1 /> */}
+      {/* <TestimonialsCarousel /> */}
+      {/* <Cta /> */}
       
 
 

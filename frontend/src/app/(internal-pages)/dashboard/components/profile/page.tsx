@@ -1,5 +1,6 @@
 "use client";
 
+import Image from "next/image";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
@@ -15,6 +16,48 @@ export default function Page() {
           View and update your personal details and account information.
         </p>
       </div>
+
+      {/* Avatar */}
+      <Card>
+        <CardHeader>
+          <CardTitle>Avatar</CardTitle>
+        </CardHeader>
+        <CardContent className="space-y-4">
+          <p className="text-sm text-muted-foreground">
+            Avatar is your profile picture – everyone who visits your profile will see this.
+          </p>
+          <div className="flex items-center gap-4">
+            <Image
+              src="/placeholder-avatar.jpg"
+              alt="User Avatar"
+              width={64}
+              height={64}
+              className="rounded-full border"
+            />
+            <Button variant="outline">Upload</Button>
+          </div>
+          <div className="flex justify-end">
+            <Button>Save</Button>
+          </div>
+        </CardContent>
+      </Card>
+
+      {/* Display Name */}
+      {/* <Card>
+        <CardHeader>
+          <CardTitle>Display Name</CardTitle>
+        </CardHeader>
+        <CardContent className="space-y-4">
+          <p className="text-sm text-muted-foreground">
+            Enter your full name or a display name you'd like to use.
+          </p>
+          <Input placeholder="Shadcn Design" maxLength={32} />
+          <p className="text-xs text-muted-foreground">Maximum allowed length is 32 characters.</p>
+          <div className="flex justify-end">
+            <Button>Save</Button>
+          </div>
+        </CardContent>
+      </Card> */}
 
       {/* Basic Information */}
       <Card>
@@ -40,7 +83,6 @@ export default function Page() {
               <Input id="email" type="email" defaultValue="stephanie_nicol@mail.com" />
             </div>
           </div>
-
           <div className="flex justify-end">
             <Button>Save</Button>
           </div>
@@ -56,7 +98,6 @@ export default function Page() {
           <p className="text-sm text-muted-foreground">
             Update your password to keep your account secure.
           </p>
-
           <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
             <div>
               <Label htmlFor="currentPassword">Current Password</Label>
@@ -71,7 +112,6 @@ export default function Page() {
               <Input id="confirmPassword" type="password" defaultValue="••••••••••" />
             </div>
           </div>
-
           <div className="flex justify-end">
             <Button>Save</Button>
           </div>
@@ -87,7 +127,6 @@ export default function Page() {
           <p className="text-sm text-muted-foreground">
             Configure detailed account preferences and security options.
           </p>
-
           <div className="space-y-4">
             <div className="flex items-center justify-between">
               <div>
@@ -96,7 +135,6 @@ export default function Page() {
               </div>
               <Switch defaultChecked />
             </div>
-
             <div className="flex items-center justify-between">
               <div>
                 <Label>Allow Admin to Add Members</Label>
@@ -104,7 +142,6 @@ export default function Page() {
               </div>
               <Switch defaultChecked />
             </div>
-
             <div className="flex items-center justify-between">
               <div>
                 <Label>Enable Two-Factor Authentication</Label>
@@ -113,7 +150,6 @@ export default function Page() {
               <Switch />
             </div>
           </div>
-
           <div className="flex justify-end">
             <Button>Save</Button>
           </div>

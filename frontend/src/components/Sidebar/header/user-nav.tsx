@@ -13,6 +13,13 @@ import {
 import { UserAvatarProfile } from './user-avatar-profile'
 import { useRouter } from 'next/navigation'
 
+import {
+  LogOut,
+} from "lucide-react"
+
+import useLogout from "@/hooks/auth/useLogout";
+
+
 export function UserNav() {
   const router = useRouter()
 
@@ -22,6 +29,9 @@ export function UserNav() {
     emailAddresses: [{ emailAddress: 'john.doe@example.com' }],
     image: '/avatar.png', // this should be in /public
   }
+
+  
+  const handleLogout = useLogout();
 
   return (
     <DropdownMenu>
@@ -56,14 +66,10 @@ export function UserNav() {
           <DropdownMenuItem>New Team</DropdownMenuItem>
         </DropdownMenuGroup>
         <DropdownMenuSeparator />
-        <DropdownMenuItem
-          onClick={() => {
-            // Simulated logout
-            router.push('/auth/sign-in')
-          }}
-        >
-          Log out
-        </DropdownMenuItem>
+        <DropdownMenuItem onClick={handleLogout}>
+              <LogOut className="mr-2 h-4 w-4" />
+              Log out
+            </DropdownMenuItem>
       </DropdownMenuContent>
     </DropdownMenu>
   )

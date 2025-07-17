@@ -1,10 +1,17 @@
 "use client";
 
 import { useState } from "react";
+import { useTranslations } from "next-intl";
 import { Button } from "@/components/ui/button";
 import { Badge } from "@/components/ui/badge";
 import { Separator } from "@/components/ui/separator";
-import { Dialog, DialogContent, DialogHeader, DialogTitle, DialogFooter } from "@/components/ui/dialog";
+import {
+  Dialog,
+  DialogContent,
+  DialogHeader,
+  DialogTitle,
+  DialogFooter
+} from "@/components/ui/dialog";
 import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
 
@@ -22,40 +29,18 @@ const statusColor = (status: string) => {
 };
 
 export default function Page() {
+  const t = useTranslations("api");
+
   const [publicApis, setPublicApis] = useState([
-    {
-      name: "Public Data API",
-      createdAt: "Sep 6, 2024 2:08 am",
-      status: "Active",
-    },
-    {
-      name: "Product Info API",
-      createdAt: "Sep 12, 2024 2:07 pm",
-      status: "Active",
-    },
-    {
-      name: "User Data API",
-      createdAt: "Aug 20, 2024 7:59 am",
-      status: "Revoke",
-    },
+    { name: "Public Data API", createdAt: "Sep 6, 2024 2:08 am", status: "Active" },
+    { name: "Product Info API", createdAt: "Sep 12, 2024 2:07 pm", status: "Active" },
+    { name: "User Data API", createdAt: "Aug 20, 2024 7:59 am", status: "Revoke" }
   ]);
 
   const [privateApis, setPrivateApis] = useState([
-    {
-      name: "Internal Data API",
-      createdAt: "Sep 1, 2024 7:53 pm",
-      status: "Active",
-    },
-    {
-      name: "Auth Service API",
-      createdAt: "Aug 29, 2024 9:18 pm",
-      status: "Active",
-    },
-    {
-      name: "Billing API",
-      createdAt: "Aug 19, 2024 8:51 pm",
-      status: "Disabled",
-    },
+    { name: "Internal Data API", createdAt: "Sep 1, 2024 7:53 pm", status: "Active" },
+    { name: "Auth Service API", createdAt: "Aug 29, 2024 9:18 pm", status: "Active" },
+    { name: "Billing API", createdAt: "Aug 19, 2024 8:51 pm", status: "Disabled" }
   ]);
 
   const [openDialog, setOpenDialog] = useState(false);
@@ -70,43 +55,46 @@ export default function Page() {
       year: "numeric",
       hour: "numeric",
       minute: "numeric",
-      hour12: true,
+      hour12: true
     });
 
-    setPublicApis((prev) => [
+    setPublicApis(prev => [
       ...prev,
-      { name: newApiName, createdAt: formattedDate, status: newApiStatus },
+      { name: newApiName, createdAt: formattedDate, status: newApiStatus }
     ]);
     setNewApiName("");
     setNewApiStatus("Active");
     setOpenDialog(false);
   };
 
+  const renderStatus = (status: string) =>
+    t(`statuses.${status.toLowerCase()}` as any) || status;
+
   return (
     <div className="p-6 max-w-7xl mx-auto space-y-8 w-full">
       {/* Header */}
       <div className="w-full flex items-center justify-between border-b pb-4">
         <div>
-          <h1 className="text-2xl font-semibold">API Settings</h1>
-          <p className="text-muted-foreground mt-1">
-            Configure your API settings. Add, remove or edit existing API keys.
-          </p>
+          <h1 className="text-2xl font-semibold">{t("title")}</h1>
+          <p className="text-muted-foreground mt-1">{t("description")}</p>
         </div>
-        <Button variant="outline">Contact support</Button>
+        <Button variant="outline">{t("support")}</Button>
       </div>
 
       {/* Public API Settings */}
       <div className="space-y-4">
         <div className="flex items-center justify-between">
-          <h2 className="text-lg font-medium">Public API Settings</h2>
-          <Button size="sm" onClick={() => setOpenDialog(true)}>New</Button>
+          <h2 className="text-lg font-medium">{t("public")}</h2>
+          <Button size="sm" onClick={() => setOpenDialog(true)}>
+            {t("new")}
+          </Button>
         </div>
         <div className="border rounded-md w-full">
           <div className="grid grid-cols-5 px-6 py-2 text-sm font-medium border-b bg-white text-left">
-            <div>API Name</div>
-            <div>Date of Creation</div>
-            <div>Status</div>
-            <div className="col-span-2">Actions</div>
+            <div>{t("name")}</div>
+            <div>{t("created")}</div>
+            <div>{t("status")}</div>
+            <div className="col-span-2">{t("actions")}</div>
           </div>
           {publicApis.map((api, idx) => (
             <div
@@ -116,12 +104,18 @@ export default function Page() {
               <div>{api.name}</div>
               <div>{api.createdAt}</div>
               <div>
-                <Badge className={statusColor(api.status)}>{api.status}</Badge>
+                <Badge className={statusColor(api.status)}>{renderStatus(api.status)}</Badge>
               </div>
               <div className="col-span-2 flex gap-2">
-                <Button variant="outline" size="sm">Edit</Button>
-                <Button variant="outline" size="sm">Duplicate</Button>
-                <Button variant="destructive" size="sm">Delete</Button>
+                <Button variant="outline" size="sm">
+                  {t("edit")}
+                </Button>
+                <Button variant="outline" size="sm">
+                  {t("duplicate")}
+                </Button>
+                <Button variant="destructive" size="sm">
+                  {t("delete")}
+                </Button>
               </div>
             </div>
           ))}
@@ -133,15 +127,15 @@ export default function Page() {
       {/* Private API Settings */}
       <div className="space-y-4">
         <div className="flex items-center justify-between">
-          <h2 className="text-lg font-medium">Private API Settings</h2>
-          <Button size="sm">New</Button>
+          <h2 className="text-lg font-medium">{t("private")}</h2>
+          <Button size="sm">{t("new")}</Button>
         </div>
         <div className="border rounded-md w-full">
           <div className="grid grid-cols-5 px-6 py-2 text-sm font-medium border-b bg-white text-left">
-            <div>API Name</div>
-            <div>Date of Creation</div>
-            <div>Status</div>
-            <div className="col-span-2">Actions</div>
+            <div>{t("name")}</div>
+            <div>{t("created")}</div>
+            <div>{t("status")}</div>
+            <div className="col-span-2">{t("actions")}</div>
           </div>
           {privateApis.map((api, idx) => (
             <div
@@ -151,12 +145,18 @@ export default function Page() {
               <div>{api.name}</div>
               <div>{api.createdAt}</div>
               <div>
-                <Badge className={statusColor(api.status)}>{api.status}</Badge>
+                <Badge className={statusColor(api.status)}>{renderStatus(api.status)}</Badge>
               </div>
               <div className="col-span-2 flex gap-2">
-                <Button variant="outline" size="sm">Edit</Button>
-                <Button variant="outline" size="sm">Duplicate</Button>
-                <Button variant="destructive" size="sm">Delete</Button>
+                <Button variant="outline" size="sm">
+                  {t("edit")}
+                </Button>
+                <Button variant="outline" size="sm">
+                  {t("duplicate")}
+                </Button>
+                <Button variant="destructive" size="sm">
+                  {t("delete")}
+                </Button>
               </div>
             </div>
           ))}
@@ -167,33 +167,35 @@ export default function Page() {
       <Dialog open={openDialog} onOpenChange={setOpenDialog}>
         <DialogContent>
           <DialogHeader>
-            <DialogTitle>Add New Public API</DialogTitle>
+            <DialogTitle>{t("dialogTitle")}</DialogTitle>
           </DialogHeader>
           <div className="space-y-4">
             <div>
-              <Label>Name</Label>
+              <Label>{t("name")}</Label>
               <Input
-                placeholder="API Name"
+                placeholder={t("placeholders.name")}
                 value={newApiName}
-                onChange={(e) => setNewApiName(e.target.value)}
+                onChange={e => setNewApiName(e.target.value)}
               />
             </div>
             <div>
-              <Label>Status</Label>
+              <Label>{t("status")}</Label>
               <select
                 value={newApiStatus}
-                onChange={(e) => setNewApiStatus(e.target.value)}
+                onChange={e => setNewApiStatus(e.target.value)}
                 className="w-full border rounded-md px-3 py-2 text-sm"
               >
-                <option value="Active">Active</option>
-                <option value="Disabled">Disabled</option>
-                <option value="Revoke">Revoke</option>
+                <option value="Active">{t("statuses.active")}</option>
+                <option value="Disabled">{t("statuses.disabled")}</option>
+                <option value="Revoke">{t("statuses.revoke")}</option>
               </select>
             </div>
           </div>
           <DialogFooter>
-            <Button variant="outline" onClick={() => setOpenDialog(false)}>Cancel</Button>
-            <Button onClick={handleAddNew}>Add API</Button>
+            <Button variant="outline" onClick={() => setOpenDialog(false)}>
+              {t("cancel")}
+            </Button>
+            <Button onClick={handleAddNew}>{t("add")}</Button>
           </DialogFooter>
         </DialogContent>
       </Dialog>

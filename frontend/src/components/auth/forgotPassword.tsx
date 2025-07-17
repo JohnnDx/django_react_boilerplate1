@@ -1,53 +1,46 @@
 "use client";
-import Link from "next/link";
+
 import { useState } from "react";
-import { useCookies } from "react-cookie";
-import { useUserContext } from "../../contexts/userContext";
-import { TokenKey } from "../../utils/constants";
 import { useRouter, useSearchParams } from "next/navigation";
-import useHandleLoginSuccess from "../../hooks/auth/usehandleLoginSuccess";
-import { useForgotPasswordMutation } from "../../queries/auth/useForgotPasswordMutation";
-import toast from "react-hot-toast";
-import { parseError } from "../../utils/errors";
-import { useResetPasswordMutation } from "../../queries/auth/useResetPasswordMutation";
+import Link from "next/link";
+import { toast } from "react-hot-toast";
+import { useCookies } from "react-cookie";
 import { ForwardIcon } from "lucide-react";
+
+import { Input } from "@/components/ui/input";
 import { Button } from "@/components/ui/button";
-import React from "react";
-import { Input } from "../ui/input";
+import { Label } from "@/components/ui/label";
+import { cn } from "@/lib/utils";
+import { TokenKey } from "@/utils/constants";
+import { parseError } from "@/utils/errors";
+import { useForgotPasswordMutation } from "@/queries/auth/useForgotPasswordMutation";
+import { useResetPasswordMutation } from "@/queries/auth/useResetPasswordMutation";
+import useHandleLoginSuccess from "@/hooks/auth/usehandleLoginSuccess";
+import { useUserContext } from "@/contexts/userContext";
+
 export default function ForgotPasswordPage() {
-  const [cookies, setCookie] = useCookies([TokenKey]);
-  const { user, setUser } = useUserContext();
   const router = useRouter();
-
-  const [email, setEmail] = useState<string>("");
-
-  const { handleLoginSuccess } = useHandleLoginSuccess();
-
   const searchParams = useSearchParams();
+  const [cookies, setCookie] = useCookies([TokenKey]);
+  const { handleLoginSuccess } = useHandleLoginSuccess();
 
   const resetCode = searchParams.get("code");
 
-  const [password2, setPassword2] = useState<string>("");
-  const [password, setPassword] = useState<string>("");
-  const {
-    mutate: handleForgotPassword,
-    isLoading: isLoadingForgotPassword,
-    error: authError,
-  } = useForgotPasswordMutation({
-    onSuccess: async (token) => {
-      toast.success("Please check your email for a Reset link");
+  const [email, setEmail] = useState("");
+  const [password, setPassword] = useState("");
+  const [password2, setPassword2] = useState("");
+
+  const { mutate: forgotPassword } = useForgotPasswordMutation({
+    onSuccess: () => {
+      toast.success("Check your email for the reset link.");
     },
     onError: (error: any) => {
       toast.error(parseError(error));
     },
   });
 
-  const {
-    mutate: handleResetPassword,
-    isLoading: isLoadingResetPassword,
-    error: resetPasswordError,
-  } = useResetPasswordMutation({
-    onSuccess: async (token) => {
+  const { mutate: resetPassword } = useResetPasswordMutation({
+    onSuccess: async (token: string) => {
       await handleLoginSuccess(token);
     },
     onError: (error: any) => {
@@ -55,141 +48,108 @@ export default function ForgotPasswordPage() {
     },
   });
 
-  const handleChangePassword = () => {
+  const handleForgot = () => {
+    if (!email) return toast.error("Please enter your email");
+    forgotPassword({ email });
+  };
+
+  const handleReset = () => {
     if (!resetCode) {
-      toast.error(
-        `Invalid request, please contact ${process.env.NEXT_PUBLIC_SUPPORT_EMAIL}`,
-      );
+      toast.error("Invalid reset link. Please request a new one.");
       return;
     }
     if (password !== password2) {
-      toast.error("Both passwords don't match ");
+      toast.error("Passwords do not match");
       return;
-    } else {
-      handleResetPassword({
-        code: resetCode,
-        password: password,
-      });
     }
+    resetPassword({ code: resetCode, password });
   };
 
   return (
-    <>
-      <div className="flex flex-col overflow-hidden rounded-lg bg-white shadow-sm dark:bg-gray-800 dark:text-gray-100">
-        <div className="w-full max-w-xl  text-center">
-          <h2 className="text-md font-medium text-gray-500 md:pt-12 dark:text-gray-400">
-            Reset Password
-          </h2>
-        </div>
-        {!!!resetCode ? (
-          <div className="grow px-5 pb-5 md:px-16 ">
-            <div className="space-y-1">
-              <label htmlFor="email" className="text-sm font-medium">
-                Email
-              </label>
-              <Input
-                autoComplete="email"
-                value={email}
-                onChange={(e) => {
-                  setEmail(e.target.value);
-                }}
-                type="email"
-                id="email"
-                name="email"
-                placeholder="Enter your email"
-                className="block w-full px-5 py-3 leading-6"
-              />
-            </div>
-
-            <div>
-              <div className="mb-5 flex items-center justify-between space-x-2 pt-2">
-                <Link
-                  href="/login"
-                  className="inline-block text-sm font-medium text-pink-600 hover:text-pink-400 dark:text-pink-400 dark:hover:text-pink-300"
-                >
-                  Login instead ?
-                </Link>
-              </div>
-              <Button
-                onClick={() => handleForgotPassword({ email })}
-                className="inline-flex h-12 w-full"
-              >
-                {" "}
-                <ForwardIcon className="hi-mini hi-arrow-uturn-right inline-block h-5 w-5 opacity-50" />
-                <span>Send Link</span>
-              </Button>
-              {/* Divider: With Label */}
-              <div className="my-5 flex items-center">
-                <span
-                  aria-hidden="true"
-                  className="h-0.5 grow rounded bg-gray-100 dark:bg-gray-700/75"
-                />
-                <span className="rounded-full bg-gray-100 px-3 py-1 text-xs font-medium text-gray-800 dark:bg-gray-700 dark:text-gray-200">
-                  or sign in with
-                </span>
-                <span
-                  aria-hidden="true"
-                  className="h-0.5 grow rounded bg-gray-100 dark:bg-gray-700/75"
-                />
-              </div>
-            </div>
-          </div>
-        ) : (
-          <div className="grow px-5 pb-5 md:px-16 ">
-            <div className="space-y-1">
-              <label htmlFor="password" className="text-sm font-medium">
-                Password
-              </label>
-              <Input
-                value={password}
-                onChange={(e) => {
-                  setPassword(e.target.value);
-                }}
-                autoComplete="current-password"
-                type="password"
-                id="password"
-                name="password"
-                placeholder="Enter your password"
-                className="block w-full text-gray-600 rounded-lg border border-gray-200 px-5 py-3 leading-6 placeholder-gray-500 focus:border-pink-500 focus:ring focus:ring-pink-500 focus:ring-opacity-50 dark:border-gray-600 dark:bg-gray-800 dark:placeholder-gray-400 dark:focus:border-pink-500"
-              />
-            </div>
-
-            <div className="space-y-1">
-              <label htmlFor="password" className="text-sm font-medium">
-                Confirm Password
-              </label>
-              <Input
-                value={password2}
-                onChange={(e) => {
-                  setPassword2(e.target.value);
-                }}
-                autoComplete="current-password"
-                type="password"
-                id="password"
-                name="password"
-                placeholder="Enter your password"
-                className="block w-full text-gray-600 rounded-lg border border-gray-200 px-5 py-3 leading-6 placeholder-gray-500 focus:border-pink-500 focus:ring focus:ring-pink-500 focus:ring-opacity-50 dark:border-gray-600 dark:bg-gray-800 dark:placeholder-gray-400 dark:focus:border-pink-500"
-              />
-            </div>
-            <Button
-              onClick={() => handleChangePassword()}
-              className=""
-            >
-              <ForwardIcon className="hi-mini hi-arrow-uturn-right inline-block h-5 w-5 opacity-50" />
-              <span>Reset Password</span>
-            </Button>
-          </div>
-        )}
-        <div className="grow bg-gray-50 p-5 text-center text-sm dark:bg-gray-700/50 md:px-16 text-gray-500">
-          Don’t have an account yet?
-          <Link
-            href="/sign-up"
-            className="font-medium text-pink-600 hover:text-pink-400 dark:text-pink-400 dark:hover:text-pink-300"
-          >
-            Sign up
-          </Link>
-        </div>
+    <form
+      className={cn("flex flex-col gap-6 w-full max-w-md mx-auto py-12 px-4")}
+      onSubmit={(e) => {
+        e.preventDefault();
+        resetCode ? handleReset() : handleForgot();
+      }}
+    >
+      <div className="flex flex-col items-center gap-2 text-center">
+        <h1 className="text-2xl font-bold">
+          {resetCode ? "Reset Your Password" : "Forgot Password"}
+        </h1>
+        <p className="text-muted-foreground text-sm text-balance">
+          {resetCode
+            ? "Enter your new password below."
+            : "Enter your email and we’ll send you a reset link."}
+        </p>
       </div>
-    </>
+
+      {!resetCode ? (
+        <>
+          <div className="grid gap-4">
+            <Label htmlFor="email">Email</Label>
+            <Input
+              id="email"
+              type="email"
+              placeholder="you@example.com"
+              value={email}
+              onChange={(e) => setEmail(e.target.value)}
+              required
+            />
+          </div>
+          <Button type="submit" className="w-full">
+            <ForwardIcon className="mr-2 h-4 w-4" />
+            Send Reset Link
+          </Button>
+        </>
+      ) : (
+        <>
+          <div className="grid gap-4">
+            <Label htmlFor="password">New Password</Label>
+            <Input
+              id="password"
+              type="password"
+              placeholder="********"
+              value={password}
+              onChange={(e) => setPassword(e.target.value)}
+              required
+            />
+          </div>
+          <div className="grid gap-4">
+            <Label htmlFor="confirm">Confirm Password</Label>
+            <Input
+              id="confirm"
+              type="password"
+              placeholder="********"
+              value={password2}
+              onChange={(e) => setPassword2(e.target.value)}
+              required
+            />
+          </div>
+          <Button type="submit" className="w-full">
+            <ForwardIcon className="mr-2 h-4 w-4" />
+            Reset Password
+          </Button>
+        </>
+      )}
+
+      <div className="text-center text-sm mt-4">
+        {resetCode ? (
+          <>
+            Remembered your password?{" "}
+            <Link href="/login" className="underline underline-offset-4">
+              Login
+            </Link>
+          </>
+        ) : (
+          <>
+            Don’t have an account?{" "}
+            <Link href="/sign-up" className="underline underline-offset-4">
+              Sign up
+            </Link>
+          </>
+        )}
+      </div>
+    </form>
   );
 }

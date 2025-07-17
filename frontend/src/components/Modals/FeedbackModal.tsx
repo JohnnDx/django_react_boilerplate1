@@ -1,160 +1,163 @@
 "use client";
 
-import { useToast } from "@/components/ui/use-toast";
 import { useState, useEffect } from "react";
-import { SendHorizontalIcon } from "lucide-react";
-import { useFeedbackModalContext } from "../../contexts/ModalProvider";
 import {
-    AnnoyedIcon,
-    FrownIcon,
-    LaughIcon,
-    MehIcon,
-    SmileIcon,
+  FrownIcon,
+  AnnoyedIcon,
+  MehIcon,
+  SmileIcon,
+  LaughIcon,
+  SendHorizontalIcon,
+  CircleFadingArrowUp,
 } from "lucide-react";
-import { useSubmitFeedbackFormWithMutation } from "@/queries/communication/SubmitFeedback";
-import { parseError } from "../../utils/errors";
-import { Button } from "@/components/ui/button";
-import { Textarea } from "@/components/ui/textarea";
+
 import {
-    Dialog,
-    DialogContent,
-    DialogHeader,
-    DialogTitle,
-    DialogFooter,
-} from "@/components/ui/dialog";
-import { Badge } from "../ui/badge";
+  AlertDialog,
+  AlertDialogContent,
+  AlertDialogHeader,
+  AlertDialogTitle,
+  AlertDialogDescription,
+  AlertDialogFooter,
+} from "@/components/ui/alert-dialog";
+import { Button } from "@/components/ui/button";
+import { Badge } from "@/components/ui/badge";
+import { Textarea } from "@/components/ui/textarea";
+
+import { toast } from "sonner";
+import { useFeedbackModalContext } from "@/contexts/ModalProvider";
+import { useSubmitFeedbackFormWithMutation } from "@/queries/communication/SubmitFeedback";
+import { parseError } from "@/utils/errors";
 
 export default function FeedbackModal() {
-    const [feedbackScore, setFeedbackScore] = useState(0);
-    const [feedbackSuggestion, setFeedbackSuggestion] = useState("");
-    const [feedbackOtherSuggestions, setFeedbackOtherSuggestions] = useState("");
+  const { isFeedbackOpen, closeFeedbackModal } = useFeedbackModalContext();
 
-    const { toast } = useToast();
-    const icons = [FrownIcon, AnnoyedIcon, MehIcon, SmileIcon, LaughIcon];
+  const [feedbackScore, setFeedbackScore] = useState(0);
+  const [feedbackSuggestion, setFeedbackSuggestion] = useState("");
+  const [feedbackOtherSuggestions, setFeedbackOtherSuggestions] = useState("");
 
-    const { isFeedbackOpen, closeFeedbackModal } = useFeedbackModalContext();
-    const feedbackSuggestions = [
-        "Customer Support",
-        "Template structure",
-        "UI Design",
-        "Overall Service",
-    ];
+  const feedbackSuggestions = [
+    "Customer Support",
+    "Template Structure",
+    "UI Design",
+    "Overall Service",
+  ];
 
-    useEffect(() => {
-        const handlePopstate = () => {
-            if (isFeedbackOpen) {
-                closeFeedbackModal();
-            }
-        };
+  const icons = [FrownIcon, AnnoyedIcon, MehIcon, SmileIcon, LaughIcon];
 
-        window.addEventListener("popstate", handlePopstate);
-
-        return () => {
-            window.removeEventListener("popstate", handlePopstate);
-        };
-    }, [isFeedbackOpen, closeFeedbackModal]);
-
-    const { mutate: submitFeedbackForm } = useSubmitFeedbackFormWithMutation({
-        onSuccess: async (message) => {
-            toast({
-                title: "Success",
-                description: message,
-            });
-            closeFeedbackModal();
-            setFeedbackScore(0);
-            setFeedbackOtherSuggestions("");
-            setFeedbackSuggestion("");
-        },
-        onError: (error: any) => {
-            toast({
-                variant: "destructive",
-                title: "Error",
-                description: parseError(error),
-            });
-            closeFeedbackModal();
-            setFeedbackScore(0);
-            setFeedbackOtherSuggestions("");
-            setFeedbackSuggestion("");
-        },
-    });
-
-    const handleSubmit = () => {
-        if (!feedbackScore) {
-            toast({
-                variant: "destructive",
-                title: "Error",
-                description: "Please Choose a feedback reaction",
-            });
-            return;
-        }
-        submitFeedbackForm({
-            feedback_score: feedbackScore,
-            feedback_suggestion: feedbackSuggestion,
-            feedback_other_suggestions: feedbackOtherSuggestions,
-        });
+  useEffect(() => {
+    const handlePopstate = () => {
+      if (isFeedbackOpen) closeFeedbackModal();
     };
+    window.addEventListener("popstate", handlePopstate);
+    return () => window.removeEventListener("popstate", handlePopstate);
+  }, [isFeedbackOpen, closeFeedbackModal]);
 
-    return (
-        <Dialog open={isFeedbackOpen} onOpenChange={closeFeedbackModal}>
-            <DialogContent className="sm:max-w-md">
-                <DialogHeader className="flex flex-row items-center justify-between">
-                    <DialogTitle>Feedback Form</DialogTitle>
-                </DialogHeader>
+  const { mutate: submitFeedbackForm } = useSubmitFeedbackFormWithMutation({
+    onSuccess: (message: string) => {
+      toast.success("Feedback submitted successfully!", {
+        description: message,
+      });
+      resetForm();
+      closeFeedbackModal();
+    },
+    onError: (error: any) => {
+      toast.error("Failed to submit feedback.", {
+        description: parseError(error),
+      });
+      resetForm();
+      closeFeedbackModal();
+    },
+  });
 
-                <div className="p-5">
-                    <p className="mb-6 text-md font-medium">
-                        Tell us what we can improve?
-                    </p>
-                    <div className="grid grid-cols-2 gap-4 mb-6 ">
-                        {feedbackSuggestions?.map((suggestion, index) => (
-                            <Badge
-                                key={index}
-                                variant={feedbackSuggestion === suggestion ? "default" : "outline"}
-                                onClick={() => setFeedbackSuggestion(suggestion)}
-                                className="cursor-pointer px-3 py-3 rounded-xl"
-                            >
-                                {suggestion}
-                            </Badge>
-                        ))}
-                    </div>
-                    <p className="mb-6 text-md font-medium">Other Suggestions</p>
-                    <Textarea
-                        id="suggestion"
-                        name="suggestion"
-                        rows={6}
-                        value={feedbackOtherSuggestions}
-                        onChange={(e) => setFeedbackOtherSuggestions(e.target.value)}
-                        placeholder="Write suggestion"
-                        className="border border-gray-300 block w-full rounded-lg px-3 py-2 text-sm leading-5 placeholder-gray-400"
-                    />
-                </div>
-                <div className="flex justify-center space-x-4 mb-3 border border-gray-200 w-[90%] mx-auto py-2 rounded-xl">
-                    {icons.map((Icon, index) => (
-                        <Icon
-                            onClick={() => setFeedbackScore(index + 1)}
-                            key={index}
-                            className={`h-10 w-7 hover:cursor-pointer hover:text-pink-600 font-light ${index == feedbackScore - 1 ? "text-pink-600" : "text-pink-200"
-                                }`}
-                        />
-                    ))}
-                </div>
-                <DialogFooter className="sm:justify-between">
-                    <Button
-                        onClick={closeFeedbackModal}
-                        type="button"
-                        variant="secondary"
-                    >
-                        Cancel
-                    </Button>
-                    <Button
-                        onClick={handleSubmit}
-                        type="button"
-                        variant="default"
-                    >
-                        Submit <SendHorizontalIcon className="h-5 w-5 ml-2" />
-                    </Button>
-                </DialogFooter>
-            </DialogContent>
-        </Dialog>
-    );
+  const resetForm = () => {
+    setFeedbackScore(0);
+    setFeedbackSuggestion("");
+    setFeedbackOtherSuggestions("");
+  };
+
+  const handleSubmit = () => {
+    if (!feedbackScore) {
+      toast.error("Please choose a feedback reaction.");
+      return;
+    }
+
+    // toast.loading("Sending your feedback...");
+
+    submitFeedbackForm({
+      feedback_score: feedbackScore,
+      feedback_suggestion: feedbackSuggestion,
+      feedback_other_suggestions: feedbackOtherSuggestions,
+    });
+  };
+
+  return (
+    <AlertDialog open={isFeedbackOpen} onOpenChange={closeFeedbackModal}>
+      <AlertDialogContent>
+        <AlertDialogHeader>
+          <div className="mx-auto sm:mx-0 mb-4 flex h-10 w-10 items-center justify-center rounded-full bg-primary/10">
+            <CircleFadingArrowUp className="h-[20px] w-[20px] text-primary" />
+          </div>
+
+          <AlertDialogTitle className="text-2xl font-bold tracking-tight">
+            Share your thoughts with us
+          </AlertDialogTitle>
+
+          <AlertDialogDescription className="!mt-2 text-[15px]">
+            What do you think about our platform so far? Your feedback helps us grow.
+          </AlertDialogDescription>
+
+          <div className="mt-5 space-y-4">
+            <div>
+              <p className="text-sm font-medium mb-2">Select a category</p>
+              <div className="flex flex-wrap gap-2">
+                {feedbackSuggestions.map((suggestion, index) => (
+                  <Badge
+                    key={index}
+                    variant={feedbackSuggestion === suggestion ? "default" : "outline"}
+                    onClick={() => setFeedbackSuggestion(suggestion)}
+                    className="cursor-pointer rounded-lg px-3 py-1 text-sm"
+                  >
+                    {suggestion}
+                  </Badge>
+                ))}
+              </div>
+            </div>
+
+            <div>
+              <p className="text-sm font-medium mb-2">Other suggestions</p>
+              <Textarea
+                placeholder="Your message here..."
+                value={feedbackOtherSuggestions}
+                onChange={(e) => setFeedbackOtherSuggestions(e.target.value)}
+              />
+            </div>
+
+            <div className="text-sm font-medium text-center">How do you feel?</div>
+            <div className="flex justify-center gap-4 pt-2">
+              {icons.map((Icon, index) => (
+                <Icon
+                  key={index}
+                  onClick={() => setFeedbackScore(index + 1)}
+                  className={`h-8 w-8 cursor-pointer transition-colors ${
+                    feedbackScore === index + 1
+                      ? "text-pink-600"
+                      : "text-muted-foreground hover:text-pink-400"
+                  }`}
+                />
+              ))}
+            </div>
+          </div>
+        </AlertDialogHeader>
+
+        <AlertDialogFooter className="mt-6 flex justify-between">
+          <Button variant="ghost" onClick={closeFeedbackModal}>
+            Cancel
+          </Button>
+          <Button onClick={handleSubmit}>
+            Submit <SendHorizontalIcon className="ml-2 h-4 w-4" />
+          </Button>
+        </AlertDialogFooter>
+      </AlertDialogContent>
+    </AlertDialog>
+  );
 }

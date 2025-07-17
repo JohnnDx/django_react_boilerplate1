@@ -4,6 +4,7 @@ import { NavMenu } from "./nav-menu";
 import { NavigationSheet } from "./navigation-sheet";
 import ThemeToggle from "../theme-toggle";
 import Link from "next/link";
+import LanguageSwitcher from '@/components/lang/LanguageSwitcher';
 
 const Navbar = () => {
   return (
@@ -15,13 +16,16 @@ const Navbar = () => {
         <NavMenu className="hidden md:block" />
 
         <div className="flex items-center gap-3">
+          <LanguageSwitcher />
           <ThemeToggle />
           <Link href="/login">
             <Button variant="outline" className="hidden sm:inline-flex">
               Sign In
             </Button>
           </Link>
+          
           <Button className="hidden xs:inline-flex">Get Started</Button>
+          
 
           {/* Mobile Menu */}
           <div className="md:hidden">

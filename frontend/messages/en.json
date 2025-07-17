@@ -1,0 +1,344 @@
+{
+  "changelog": {
+    "title": "Changelog",
+    "subtitle": "See what's new and improved in the platform.",
+    "versions": {
+      "v1_3_0": {
+        "tag": "New",
+        "updates": [
+          "Launched user roles and permissions management",
+          "Added notification preferences for campaign activity",
+          "Enabled email scheduling based on user time zone",
+          "Integrated support for Gmail OAuth sending",
+          "Added lead scoring system with tagging",
+          "Revamped dashboard performance with lazy loading",
+          "Support for adding custom unsubscribe URLs",
+          "Activity feed with filters (campaigns, users, system)"
+        ]
+      },
+      "v1_2_0": {
+        "tag": "New",
+        "updates": [
+          "Added team invitations via email",
+          "Implemented audit log system for user activity",
+          "Improved API key management UI",
+          "Added i18n support for Polish and English",
+          "New onboarding checklist with progress tracking",
+          "Added dark mode toggle in settings",
+          "Support for exporting leads to CSV",
+          "Smart suggestions in email composer using OpenAI"
+        ]
+      },
+      "v1_1_0": {
+        "tag": "Improvement",
+        "updates": [
+          "Launched multi-tenancy support",
+          "Integrated Stripe billing with team-based plans",
+          "Added reusable analytics cards to dashboard",
+          "Improved error handling for SMTP send failures",
+          "Enhanced mobile responsiveness on dashboard views",
+          "Faster campaign creation flow with autosave",
+          "Refactored backend services for better scaling"
+        ]
+      },
+      "v1_0_0": {
+        "tag": "Release",
+        "updates": [
+          "Initial MVP release with campaign creation",
+          "Cold email sending via SMTP and Mailersend",
+          "Basic metrics and user onboarding flows",
+          "Stripe integration for paid plans",
+          "Lead upload via CSV and manual form",
+          "User authentication with Supabase",
+          "Admin panel with impersonate feature",
+          "Basic user settings panel"
+        ]
+      }
+    }
+  },
+  "referral": {
+    "title": "🎁 Get free access with 10 referrals!",
+    "subtitle": "You're {count} referrals away from your reward.",
+    "linkLabel": "Share your link",
+    "stats": {
+      "referrals": "Referrals",
+      "earnings": "Earnings",
+      "clicks": "Clicks",
+      "signups": "Signups"
+    }
+  },
+  "emailProviders": {
+    "title": "Email Providers",
+    "connect": "Add New Mailbox"
+  },
+  "settings": {
+    "title": "Settings",
+    "profile": "Your Profile",
+    "notifications": "Notifications"
+  },
+  "common": {
+    "buttons": {
+      "save": "Save",
+      "cancel": "Cancel"
+    },
+    "labels": {
+      "email": "Email",
+      "password": "Password"
+    }
+  },
+  "sidebar": {
+    "overview": "Overview",
+    "chat": "Chat",
+    "referral": "Referral Program",
+    "modals": "Modals",
+    "components": {
+      "_": "Components",
+      "changelog": "Changelog",
+      "billing": "Billing",
+      "profile": "Profile",
+      "integrations": "Integrations",
+      "api": "API Keys",
+      "pricing": "Pricing",
+      "invoices": "Invoices",
+      "team": "Team",
+      "notifications": "Notifications",
+      "activity": "Activity",
+      "mails": "Mails",
+      "dashboard": "Dashboard",
+      "onboarding": "Onboarding"
+    },
+    "klientomat": {
+      "title": "Klientomat",
+      "dashboard": "Dashboard",
+      "campaigns": "Campaigns",
+      "leads": "Leads",
+      "sequences": "Sequences",
+      "analytics": "Analytics",
+      "outbox": "Outbox",
+      "emailProviders": "Email Accounts",
+      "teams": "Team",
+      "settings": "Settings"
+    },
+    "astrolytics": {
+      "title": "Astrolytics",
+      "dashboard": "Dashboard",
+      "campaigns": "Campaigns",
+      "events": "Events",
+      "referrals": "Referrals",
+      "insights": "Insights",
+      "settings": "Settings",
+      "team": "Team"
+    },
+    "errors": "Errors",
+    "support": "Support",
+    "feedback": "Feedback"
+  },
+  "pricing": {
+    "title": "Pricing Plans for Every Stage",
+    "description": "Clear, flexible pricing built to scale with your business. Choose the plan that fits your growth and goals.",
+    "billing": {
+      "monthly": "Monthly",
+      "annually": "Annually"
+    },
+    "plans": {
+      "basic": {
+        "name": "Basic",
+        "headline": "Perfect for individuals and small projects",
+        "features": [
+          "Up to 5 team members",
+          "10GB storage space",
+          "Basic analytics"
+        ]
+      },
+      "standard": {
+        "name": "Standard",
+        "headline": "Ideal for growing teams and businesses",
+        "badge": "Most popular",
+        "features": [
+          "Everything in Basic, plus:",
+          "Up to 20 team members",
+          "50GB storage space",
+          "Advanced analytics",
+          "Priority support"
+        ]
+      },
+      "premium": {
+        "name": "Premium",
+        "headline": "For large enterprises and advanced needs",
+        "features": [
+          "Everything in Standard, plus:",
+          "Unlimited team members",
+          "250GB storage space",
+          "Custom analytics",
+          "24/7 premium support",
+          "White-labeling"
+        ]
+      }
+    },
+    "purchase": "Purchase Plan"
+  },
+  "billing": {
+  "title": "Billing",
+  "description": "Manage your subscription, payment methods and personal details.",
+  "plan": {
+    "title": "Plan Status",
+    "free": "Free Plan",
+    "upgradeNotice": "You’re currently using the free plan. Upgrade to unlock more features like adding components to your app.",
+    "viewPlans": "View Plans"
+  },
+  "card": {
+    "title": "Card Details",
+    "description": "View and update your card details here.",
+    "name": "Name on Card",
+    "number": "Card Number",
+    "expiry": "Expiry",
+    "cvv": "CVV",
+    "save": "Save"
+  },
+  "client": {
+    "title": "Client Details",
+    "description": "Update personal information.",
+    "fullName": "Full Name",
+    "email": "Email",
+    "country": "Country",
+    "city": "City",
+    "address": "Address",
+    "state": "State"
+  }
+},
+  "activity": {
+    "title": "Activity",
+    "description": "See what’s been happening across your account recently.",
+    "status": {
+      "success": "Success",
+      "warning": "Warning",
+      "error": "Error"
+    },
+    "items": {
+      "login": "Logged in",
+      "teamSettingsChanged": "Changed team settings",
+      "userInvited": "Invited new user",
+      "projectDeleted": "Deleted project",
+      "onboardingCompleted": "Completed onboarding"
+    }
+  }
+,
+"api": {
+  "title": "API Settings",
+  "description": "Configure your API settings. Add, remove or edit existing API keys.",
+  "public": "Public API Settings",
+  "private": "Private API Settings",
+  "new": "New",
+  "add": "Add API",
+  "cancel": "Cancel",
+  "name": "Name",
+  "status": "Status",
+  "created": "Date of Creation",
+  "actions": "Actions",
+  "edit": "Edit",
+  "duplicate": "Duplicate",
+  "delete": "Delete",
+  "support": "Contact support",
+  "dialogTitle": "Add New Public API",
+  "placeholders": {
+    "name": "API Name"
+  },
+  "statuses": {
+    "active": "Active",
+    "disabled": "Disabled",
+    "revoke": "Revoke"
+  }
+},
+"billing": {
+    "invoices": {
+      "title": "Invoices",
+      "subtitle": "Manage your invoices, billing, and payment details effortlessly.",
+      "searchPlaceholder": "Search invoices...",
+      "download": "Download All",
+      "columns": {
+        "invoice": "Invoice",
+        "date": "Billing Date",
+        "status": "Status",
+        "plan": "Plan"
+      },
+      "rowsPerPage": "Rows per page:",
+      "noResults": "No results found.",
+      "of": "of",
+      "prevPage": "Go to previous page",
+      "nextPage": "Go to next page"
+    }
+  },
+  
+  
+  "mailbox": {
+    "tags": {
+      "meeting": "Meeting",
+      "work": "Work",
+      "important": "Important",
+      "budget": "Budget",
+      "personal": "Personal",
+      "travel": "Travel",
+      "conference": "Conference"
+    },
+    "inbox": {
+      "title": "Inbox",
+      "all": "All",
+      "unread": "Unread",
+      "searchPlaceholder": "Search mail..."
+    },
+    "display": {
+      "noMessage": "No message selected",
+      "back": "Back",
+      "archive": "Archive",
+      "junk": "Move to junk",
+      "trash": "Delete",
+      "snoozeUntil": "Snooze until",
+      "snooze": {
+        "laterToday": "Later today",
+        "tomorrow": "Tomorrow",
+        "weekend": "This weekend",
+        "nextWeek": "Next week"
+      },
+      "reply": "Reply",
+      "replyall": "Reply all",
+      "forward": "Forward",
+      "replyTo": "Reply-To",
+      "mute": "Mute this thread",
+      "send": "Send"
+    }
+  },
+  "notifications": {
+    "title": "Notifications",
+    "description": "Stay informed with customizable notifications! Choose how to receive updates.",
+    "generalTitle": "General Notifications",
+    "generalDescription": "General notifications keep you updated on key account events and activities.",
+    "summaryTitle": "Summary Notifications",
+    "summaryDescription": "Summary notifications provide an overview of your recent activities and updates.",
+    "general": {
+      "newMessages": "New messages",
+      "accountActivity": "Account activity",
+      "mentions": "Mentions in discussions",
+      "appUpdates": "Application updates"
+    },
+    "summary": {
+      "dailySummary": "Daily activity summary",
+      "weeklyReport": "Weekly progress report",
+      "billingSummary": "Monthly billing summary",
+      "eventReminders": "Event reminder summary"
+    },
+    "options": {
+      "all": "All",
+      "email": "Email",
+      "inApp": "In app",
+      "none": "None"
+    }
+  }
+
+
+
+
+
+
+
+
+}

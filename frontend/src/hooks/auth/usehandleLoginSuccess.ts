@@ -3,23 +3,24 @@ import { useCookies } from "react-cookie";
 import { useUserContext } from "../../contexts/userContext";
 import { NEXT_ROUTE_KEY, TokenKey } from "../../utils/constants";
 import { getUserInfo } from "../../queries/auth/login/useGetUserInfo";
+import { toast } from "sonner"; // ✅ Sonner toast import
 
 export default function useHandleLoginSuccess() {
   const { setUser } = useUserContext();
   const [cookies, setCookie] = useCookies([TokenKey]);
-
   const router = useRouter();
-
   const searchParams = useSearchParams();
 
   return {
     handleLoginSuccess: async (
       token: string,
-      isImpersonated: boolean = false,
+      isImpersonated: boolean = false
     ) => {
       try {
         setCookie(TokenKey, token);
+
         const userInfo = await getUserInfo();
+
         setUser({
           newUser: {
             providers: userInfo.providers,
@@ -36,20 +37,24 @@ export default function useHandleLoginSuccess() {
           newSubscription: userInfo.subscriptions,
         });
 
+        toast.success("Welcome back!", {
+          description: `Logged in as ${userInfo.email}`,
+        }); // ✅ Login success toast
+
         let nextRoute = searchParams.get(NEXT_ROUTE_KEY);
         const state = searchParams.get("state");
+
         if (state) {
           let decodedState = atob(state);
           nextRoute = JSON.parse(decodedState ?? "{}")?.next;
         }
-        if (nextRoute === "" || nextRoute == null) {
-          router.push("/dashboard");
-          return;
-        } else {
-          router.push(nextRoute);
-        }
+
+        router.push(nextRoute || "/dashboard");
       } catch (err) {
-        console.log("err --<>",err)
+        toast.error("Login failed", {
+          description: "Something went wrong logging in.",
+        });
+        console.error("Login error:", err);
       }
     },
   };

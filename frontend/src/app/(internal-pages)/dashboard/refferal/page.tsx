@@ -1,4 +1,6 @@
 "use client";
+
+import { useTranslations } from "next-intl";
 import ReferralHeader from "@/components/referral/header";
 import ShareReferralLink from "@/components/referral/refferalLink";
 import ReferralProgressBar from "@/components/referral/progress";
@@ -12,6 +14,8 @@ import { Card, CardContent } from "@/components/ui/card";
 
 
 function RefferalDashboard() {
+  const t = useTranslations("referral");
+
   const [refferalLink, setRefferalLink] = useState<string>("");
 
   const [statsData, setStatsData] = useState<AffiliateDetails>();
@@ -38,7 +42,7 @@ function RefferalDashboard() {
       <Card className="bg-gradient-to-r from-green-100 to-white border border-green-300 shadow-sm">
         <CardContent className="py-6 text-center">
           <p className="text-lg font-semibold text-green-700">
-            🎁 Unlock a Free Subscription when you reach 10 referrals!
+            {t("title")}
           </p>
           <p className="text-sm text-muted-foreground">
             You're only {10 - (statsData?.totalReferrals || 0)} referrals away from your reward.

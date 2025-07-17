@@ -20,6 +20,7 @@ import {KBarCommand} from '@/components/KBarCommand';
 import { AppSidebar } from '@/components/Sidebar/app-sidebar'
 import Header from '@/components/Sidebar/header/header'
 
+
 // ✅ akcje
 const actions = [
   {
@@ -102,31 +103,34 @@ export default function DashboardLayout({
   children: React.ReactNode
 }) {
   return (
-    
-      <KBarProvider actions={actions}>
-      <KBarPortal>
-        <Overlay />
-        <KBarPositioner className="z-50">
-          <KBarAnimator >
-          {/* <KBarAnimator className="pl-[256px]"> */}
-            <div className="flex justify-center w-full">
-              <div className="w-full max-w-md">
-                <KBarCommand />
-              </div>
-            </div>
-          </KBarAnimator>
-        </KBarPositioner>
-      </KBarPortal>
+      
+    //   <KBarProvider actions={actions}>
+    //   <KBarPortal>
+    //     <Overlay />
+    //     <KBarPositioner className="z-50">
+    //       <KBarAnimator >
+    //       {/* <KBarAnimator className="pl-[256px]"> */}
+    //         <div className="flex justify-center w-full">
+    //           <div className="w-full max-w-md">
+    //             <KBarCommand />
+    //           </div>
+    //         </div>
+    //       </KBarAnimator>
+    //     </KBarPositioner>
+    //   </KBarPortal>
 
-      <SidebarProvider>
-        <AppSidebar />
-        <SidebarInset>
-          <Header />
-          <div className="flex flex-1 flex-col gap-4 p-4 pt-0">
+    //   <SidebarProvider>
+    //     <AppSidebar />
+    //     <SidebarInset>
+    //       <Header />
+    //       <div className="flex flex-1 flex-col gap-4 p-4 pt-0">
+    //         {children}
+    //       </div>
+    //     </SidebarInset>
+    //   </SidebarProvider>
+    // </KBarProvider>
+    <div className="flex flex-1 flex-col gap-4  pt-0">
             {children}
           </div>
-        </SidebarInset>
-      </SidebarProvider>
-    </KBarProvider>
   )
 }
